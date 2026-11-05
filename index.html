@@ -1,0 +1,682 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<title>GOLDINO | Smart Market</title>
+
+<style>
+:root {
+  --bg: #101010;
+  --panel: #1b1b1b;
+  --panel2: #242424;
+  --text: #f5f5f5;
+  --muted: #999999;
+  --gold: #d9b45c;
+  --border: #303030;
+}
+
+body.light {
+  --bg: #f4f2ed;
+  --panel: #ffffff;
+  --panel2: #eeece6;
+  --text: #222222;
+  --muted: #777777;
+  --gold: #a77b22;
+  --border: #dedbd2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Tahoma, Arial, sans-serif;
+  transition: .25s;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.app {
+  max-width: 520px;
+  margin: auto;
+  min-height: 100vh;
+  padding: 18px 16px 100px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.logo {
+  color: var(--gold);
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.logo small {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 3px;
+  margin-top: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.welcome {
+  margin-bottom: 20px;
+}
+
+.welcome h2 {
+  font-size: 19px;
+  margin-bottom: 7px;
+}
+
+.welcome p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+}
+
+.market-banner {
+  background: linear-gradient(135deg,#292215,#171717);
+  border: 1px solid #5c4924;
+  border-radius: 18px;
+  padding: 19px;
+  margin-bottom: 23px;
+}
+
+.banner-label {
+  color: #dfc786;
+  font-size: 12px;
+}
+
+.banner-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 13px 0 7px;
+  color: #fff0c8;
+}
+
+.banner-desc {
+  color: #b9aa88;
+  font-size: 11px;
+  line-height: 2;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0 13px;
+}
+
+.section-title h3 {
+  font-size: 15px;
+  margin: 0;
+}
+
+.section-title span {
+  color: var(--gold);
+  font-size: 11px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
+.asset {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 15px 12px;
+  min-height: 115px;
+}
+
+.asset-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.asset-icon {
+  font-size: 21px;
+}
+
+.asset-tag {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.asset h4 {
+  font-size: 13px;
+  margin: 13px 0 8px;
+}
+
+.price {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.asset small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  margin-top: 7px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 18px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: #d5a843;
+  border-radius: 50%;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 9px;
+}
+
+.tool {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 15px 5px;
+  text-align: center;
+  color: var(--text);
+  font-size: 11px;
+}
+
+.tool div {
+  font-size: 22px;
+  margin-bottom: 9px;
+}
+
+.notice {
+  margin-top: 22px;
+  background: var(--panel2);
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 10px;
+  line-height: 2;
+  color: var(--muted);
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 520px;
+  margin: auto;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 4px calc(12px + env(safe-area-inset-bottom));
+  z-index: 10;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 10px;
+  padding: 4px;
+}
+
+nav button span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+nav button.active {
+  color: var(--gold);
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.empty {
+  padding: 30px 15px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  color: var(--muted);
+  line-height: 2.2;
+  font-size: 12px;
+}
+
+input {
+  width: 100%;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 13px;
+  color: var(--text);
+  margin: 8px 0;
+}
+
+.primary {
+  background: var(--gold);
+  color: #171717;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.result {
+  margin-top: 15px;
+  color: var(--gold);
+  line-height: 2;
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 9px;
+  margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div class="logo">
+    GOLDINO
+    <small>SMART MARKET COMPANION</small>
+  </div>
+
+  <div class="actions">
+    <button class="icon-btn" onclick="toggleLanguage()">EN / FA</button>
+    <button class="icon-btn" onclick="toggleTheme()">◐</button>
+  </div>
+</header>
+
+<main>
+
+<section id="home" class="page active">
+
+  <div class="welcome">
+    <h2 data-fa="خوش آمدید به گلدینو 👋"
+        data-en="Welcome to GOLDINO 👋">
+      خوش آمدید به گلدینو 👋
+    </h2>
+    <p data-fa="مرکز هوشمند رصد بازارهای مالی"
+       data-en="Your smart financial market center">
+      مرکز هوشمند رصد بازارهای مالی
+    </p>
+  </div>
+
+  <div class="market-banner">
+    <div class="banner-label"
+      data-fa="GOLDINO MARKET"
+      data-en="GOLDINO MARKET">
+      GOLDINO MARKET
+    </div>
+
+    <div class="banner-title"
+      data-fa="همه بازارها، یکجا"
+      data-en="All markets in one place">
+      همه بازارها، یکجا
+    </div>
+
+    <div class="banner-desc"
+      data-fa="طلا، ارز و بازار جهانی را هوشمندانه دنبال کن."
+      data-en="Track gold, currencies and global markets.">
+      طلا، ارز و بازار جهانی را هوشمندانه دنبال کن.
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h3 data-fa="🇮🇷 بازار ایران"
+        data-en="🇮🇷 Iran Market">🇮🇷 بازار ایران</h3>
+    <span data-fa="قیمت‌ها" data-en="Prices">قیمت‌ها</span>
+  </div>
+
+  <div class="grid">
+    <div class="asset">
+      <div class="asset-top">
+        <span class="asset-icon">🥇</span>
+        <span class="asset-tag">18K</span>
+      </div>
+      <h4 data-fa="طلای ۱۸ عیار" data-en="18K Gold">طلای ۱۸ عیار</h4>
+      <div class="price" data-fa="در انتظار اتصال"
+           data-en="Awaiting data">در انتظار اتصال</div>
+      <small data-fa="هر گرم · تومان" data-en="Per gram · Toman">
+        هر گرم · تومان
+      </small>
+    </div>
+
+    <div class="asset">
+      <div class="asset-top">
+        <span class="asset-icon">💰</span>
+        <span class="asset-tag">COIN</span>
+      </div>
+      <h4 data-fa="سکه امامی" data-en="Emami Coin">سکه امامی</h4>
+      <div class="price" data-fa="در انتظار اتصال"
+           data-en="Awaiting data">در انتظار اتصال</div>
+      <small data-fa="هر عدد · تومان" data-en="Per coin · Toman">
+        هر عدد · تومان
+      </small>
+    </div>
+
+    <div class="asset">
+      <div class="asset-top">
+        <span class="asset-icon">💵</span>
+        <span class="asset-tag">USD</span>
+      </div>
+      <h4 data-fa="دلار آزاد" data-en="Free Market USD">دلار آزاد</h4>
+      <div class="price" data-fa="در انتظار اتصال"
+           data-en="Awaiting data">در انتظار اتصال</div>
+      <small data-fa="هر دلار · تومان" data-en="Per USD · Toman">
+        هر دلار · تومان
+      </small>
+    </div>
+
+    <div class="asset">
+      <div class="asset-top">
+        <span class="asset-icon">💶</span>
+        <span class="asset-tag">EUR</span>
+      </div>
+      <h4 data-fa="یورو" data-en="Euro">یورو</h4>
+      <div class="price" data-fa="در انتظار اتصال"
+           data-en="Awaiting data">در انتظار اتصال</div>
+      <small data-fa="هر یورو · تومان" data-en="Per EUR · Toman">
+        هر یورو · تومان
+      </small>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h3 data-fa="🌍 بازار جهانی"
+        data-en="🌍 Global Market">🌍 بازار جهانی</h3>
+    <span data-fa="بین‌المللی" data-en="International">
+      بین‌المللی
+    </span>
+  </div>
+
+  <div class="grid">
+    <div class="asset">
+      <div class="asset-top">
+        <span class="asset-icon">🌟</span>
+        <span class="asset-tag">XAU</span>
+      </div>
+      <h4 data-fa="اونس جهانی طلا" data-en="Gold Ounce">
+        اونس جهانی طلا
+      </h4>
+      <div class="price" data-fa="در انتظار اتصال"
+           data-en="Awaiting data">در انتظار اتصال</div>
+      <small>USD / Ounce</small>
+    </div>
+
+    <div class="asset">
+      <div class="asset-top">
+        <span class="asset-icon">₿</span>
+        <span class="asset-tag">BTC</span>
+      </div>
+      <h4 data-fa="بیت‌کوین" data-en="Bitcoin">بیت‌کوین</h4>
+      <div class="price" data-fa="در انتظار اتصال"
+           data-en="Awaiting data">در انتظار اتصال</div>
+      <small>USD / BTC</small>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h3 data-fa="ابزارهای کاربردی"
+        data-en="Useful Tools">ابزارهای کاربردی</h3>
+  </div>
+
+  <div class="tools">
+    <button class="tool" onclick="showPage('calculator',this)">
+      <div>🧮</div>
+      <span data-fa="ماشین‌حساب" data-en="Calculator">ماشین‌حساب</span>
+    </button>
+
+    <button class="tool" onclick="showPage('portfolio',this)">
+      <div>💼</div>
+      <span data-fa="سبد دارایی" data-en="Portfolio">سبد دارایی</span>
+    </button>
+
+    <button class="tool" onclick="showPage('alerts',this)">
+      <div>🔔</div>
+      <span data-fa="هشدارها" data-en="Alerts">هشدارها</span>
+    </button>
+  </div>
+
+  <div class="status">
+    <span class="dot"></span>
+    <span data-fa="اتصال به منابع قیمت هنوز فعال نشده است"
+          data-en="Price sources are not connected yet">
+      اتصال به منابع قیمت هنوز فعال نشده است
+    </span>
+  </div>
+
+  <div class="notice">
+    ⚠️ <span data-fa="قیمت‌ها پس از اتصال به منابع معتبر نمایش داده می‌شوند. هیچ عدد نمایشی را قیمت واقعی بازار در نظر نگیرید."
+      data-en="Prices will appear after connecting verified sources. No demo value should be treated as a real market price.">
+      قیمت‌ها پس از اتصال به منابع معتبر نمایش داده می‌شوند. هیچ عدد نمایشی را قیمت واقعی بازار در نظر نگیرید.
+    </span>
+  </div>
+</section>
+
+<section id="calculator" class="page">
+  <div class="section-title">
+    <h3 data-fa="🧮 ماشین‌حساب" data-en="🧮 Calculator">
+      🧮 ماشین‌حساب
+    </h3>
+  </div>
+  <div class="asset">
+    <h4 data-fa="محاسبه ارزش دارایی" data-en="Asset Calculator">
+      محاسبه ارزش دارایی
+    </h4>
+    <label data-fa="مقدار دارایی" data-en="Asset quantity">مقدار دارایی</label>
+    <input id="quantity" type="number" min="0" placeholder="مثلاً 10">
+    <label data-fa="قیمت هر واحد (تومان)" data-en="Price per unit (Toman)">
+      قیمت هر واحد (تومان)
+    </label>
+    <input id="unitPrice" type="number" min="0" placeholder="مثلاً 1000000">
+    <button class="primary" onclick="calculate()"
+      data-fa="محاسبه ارزش" data-en="Calculate value">
+      محاسبه ارزش
+    </button>
+    <div class="result" id="result"></div>
+  </div>
+</section>
+
+<section id="portfolio" class="page">
+  <div class="section-title">
+    <h3 data-fa="💼 سبد دارایی من" data-en="💼 My Portfolio">
+      💼 سبد دارایی من
+    </h3>
+  </div>
+  <div class="empty"
+    data-fa="بخش مدیریت دارایی‌ها در مرحله بعدی توسعه فعال خواهد شد."
+    data-en="Portfolio management will be activated in a future development stage.">
+    بخش مدیریت دارایی‌ها در مرحله بعدی توسعه فعال خواهد شد.
+  </div>
+</section>
+
+<section id="alerts" class="page">
+  <div class="section-title">
+    <h3 data-fa="🔔 هشدار قیمت" data-en="🔔 Price Alerts">
+      🔔 هشدار قیمت
+    </h3>
+  </div>
+  <div class="empty"
+    data-fa="سیستم هشدار پس از اتصال منابع قیمت فعال خواهد شد."
+    data-en="Price alerts will be available after connecting market data sources.">
+    سیستم هشدار پس از اتصال منابع قیمت فعال خواهد شد.
+  </div>
+</section>
+
+<section id="settings" class="page">
+  <div class="section-title">
+    <h3 data-fa="⚙️ تنظیمات" data-en="⚙️ Settings">
+      ⚙️ تنظیمات
+    </h3>
+  </div>
+  <div class="asset">
+    <h4 data-fa="زبان برنامه" data-en="App Language">زبان برنامه</h4>
+    <button class="primary" onclick="toggleLanguage()">
+      فارسی / English
+    </button>
+    <br><br>
+    <h4 data-fa="پوسته برنامه" data-en="App Theme">پوسته برنامه</h4>
+    <button class="primary" onclick="toggleTheme()">
+      Dark / Light
+    </button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  GOLDINO © 2026 · SMART MARKET COMPANION
+</footer>
+
+</div>
+
+<nav>
+  <button class="active" onclick="showPage('home',this)">
+    <span>⌂</span><b data-fa="خانه" data-en="Home">خانه</b>
+  </button>
+  <button onclick="showPage('calculator',this)">
+    <span>🧮</span><b data-fa="محاسبه" data-en="Calculate">محاسبه</b>
+  </button>
+  <button onclick="showPage('portfolio',this)">
+    <span>💼</span><b data-fa="دارایی" data-en="Assets">دارایی</b>
+  </button>
+  <button onclick="showPage('alerts',this)">
+    <span>🔔</span><b data-fa="هشدار" data-en="Alerts">هشدار</b>
+  </button>
+  <button onclick="showPage('settings',this)">
+    <span>⚙</span><b data-fa="تنظیمات" data-en="Settings">تنظیمات</b>
+  </button>
+</nav>
+
+<script>
+let language = "fa";
+
+function toggleTheme() {
+  document.body.classList.toggle("light");
+}
+
+function toggleLanguage() {
+  language = language === "fa" ? "en" : "fa";
+
+  document.documentElement.lang = language;
+  document.documentElement.dir =
+    language === "fa" ? "rtl" : "ltr";
+
+  document.querySelectorAll("[data-fa]").forEach(el => {
+    el.textContent = el.getAttribute("data-" + language);
+  });
+}
+
+function showPage(id, button) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  if(button && button.closest("nav")) {
+    button.classList.add("active");
+  } else {
+    const navButtons = document.querySelectorAll("nav button");
+    const index = {
+      home: 0,
+      calculator: 1,
+      portfolio: 2,
+      alerts: 3,
+      settings: 4
+    }[id];
+
+    navButtons[index].classList.add("active");
+  }
+
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function calculate() {
+  const quantity = Number(document.getElementById("quantity").value);
+  const price = Number(document.getElementById("unitPrice").value);
+  const result = document.getElementById("result");
+
+  if(quantity <= 0 || price <= 0 ||
+     !Number.isFinite(quantity * price)) {
+    result.textContent =
+      language === "fa"
+      ? "لطفاً مقادیر معتبر وارد کنید."
+      : "Please enter valid values.";
+    return;
+  }
+
+  const total = quantity * price;
+
+  result.textContent =
+    (language === "fa" ? "ارزش کل: " : "Total value: ") +
+    new Intl.NumberFormat(
+      language === "fa" ? "fa-IR" : "en-US"
+    ).format(total) +
+    (language === "fa" ? " تومان" : " Toman");
+}
+</script>
+
+</body>
+</html>
